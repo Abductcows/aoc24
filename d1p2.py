@@ -1,17 +1,7 @@
-def get_lines(filename):
-    lines = []
-    with open(filename) as file:
-        for line in file:
-            lines.append(line.rstrip('\n'))
-
-    while lines and not lines[-1]:
-        lines.pop()
-
-    return lines
-
-
 import re
 from collections import defaultdict
+
+from boilerplate import get_lines
 
 
 def run(filename):
@@ -26,6 +16,7 @@ def run(filename):
 
     similiarity_score = sum((value * right[value] for value in left))
     print(similiarity_score)
+    return similiarity_score
 
 
 if __name__ == '__main__':

@@ -8,12 +8,3 @@ def get_lines(filename):
         lines.pop()
 
     return lines
-
-
-def run(filename):
-    lines = get_lines(filename)
-
-
-if __name__ == '__main__':
-    run('example.txt')
-    # run('input.txt')

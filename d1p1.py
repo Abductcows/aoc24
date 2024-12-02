@@ -1,16 +1,6 @@
-def get_lines(filename):
-    lines = []
-    with open(filename) as file:
-        for line in file:
-            lines.append(line.rstrip('\n'))
-
-    while lines and not lines[-1]:
-        lines.pop()
-
-    return lines
-
-
 import re
+
+from boilerplate import get_lines
 
 
 def run(filename):
@@ -28,6 +18,7 @@ def run(filename):
 
     diff_sum = sum((abs(lval - rval) for lval, rval in zip(left, right)))
     print(diff_sum)
+    return diff_sum
 
 
 if __name__ == '__main__':

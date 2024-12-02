@@ -1,13 +1,4 @@
-def get_lines(filename):
-    lines = []
-    with open(filename) as file:
-        for line in file:
-            lines.append(line.rstrip('\n'))
-
-    while lines and not lines[-1]:
-        lines.pop()
-
-    return lines
+from boilerplate import get_lines
 
 
 def is_safe_sequence(nums):
@@ -38,6 +29,7 @@ def run(filename):
             total_safe += 1
 
     print(total_safe)
+    return total_safe
 
 
 if __name__ == '__main__':
