@@ -1,6 +1,3 @@
-from collections import defaultdict
-
-
 def get_lines(filename):
     lines = []
     with open(filename) as file:
@@ -14,22 +11,20 @@ def get_lines(filename):
 
 
 import re
+from collections import defaultdict
 
 
 def run(filename):
     lines = get_lines(filename)
 
-    left, right = [], defaultdict(lambda : 0)
+    left, right = [], defaultdict(lambda: 0)
 
     for line in lines:
         values = [int(e) for e in re.findall(r'\d+', line)]
         left.append(values[0])
-        right[values[1]] = right[values[1]] + 1
+        right[values[1]] += 1
 
-    similiarity_score = 0
-    for value in left:
-        similiarity_score += value * right[value]
-
+    similiarity_score = sum((value * right[value] for value in left))
     print(similiarity_score)
 
 
