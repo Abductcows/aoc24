@@ -3,7 +3,7 @@ import re
 
 def run_with_file(file, run_function):
     lines = get_lines(file)
-    run_function(lines)
+    return run_function(lines)
 
 
 def get_lines(filename):
@@ -18,7 +18,7 @@ def get_lines(filename):
     return lines
 
 
-def lines_getter(day_with_num):
+def get_input_for_day(day_with_num):
     lines = []
     with open('inputs.txt') as file:
         while not file.readline().startswith(f'{day_with_num}:'):

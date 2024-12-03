@@ -1,6 +1,6 @@
 import re
 
-from boilerplate import run_with_file, lines_getter
+from boilerplate import run_with_file, get_input_for_day
 
 
 def run(lines):
@@ -15,10 +15,9 @@ def run(lines):
     right.sort()
 
     diff_sum = sum((abs(lval - rval) for lval, rval in zip(left, right)))
-    print(diff_sum)
     return diff_sum
 
 
 if __name__ == '__main__':
-    run_with_file('example.txt', run)
-    run(lines_getter('d1'))
+    print(run_with_file('example.txt', run))
+    print(run(get_input_for_day('d1')))

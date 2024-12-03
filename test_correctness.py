@@ -4,7 +4,7 @@ import re
 import unittest
 from collections import OrderedDict
 
-from boilerplate import lines_getter
+from boilerplate import get_input_for_day
 
 
 class AdventTests(unittest.TestCase):
@@ -16,7 +16,7 @@ class AdventTests(unittest.TestCase):
 
     def solve(self, module_name):
         day = re.match(r'd(\d+)', module_name).group()
-        return AdventTests.module_dict[module_name].run(lines_getter(day))
+        return AdventTests.module_dict[module_name].run(get_input_for_day(day))
 
     @classmethod
     def setUpClass(cls):

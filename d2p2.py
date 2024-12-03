@@ -1,4 +1,4 @@
-from boilerplate import run_with_file, lines_getter
+from boilerplate import run_with_file, get_input_for_day
 
 
 def is_safe_sequence(nums):
@@ -28,10 +28,9 @@ def run(lines):
                 total_safe += 1
                 break
 
-    print(total_safe)
     return total_safe
 
 
 if __name__ == '__main__':
-    run_with_file('example.txt', run)
-    run(lines_getter('d2'))
+    print(run_with_file('example.txt', run))
+    print(run(get_input_for_day('d2')))
