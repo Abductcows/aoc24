@@ -1,12 +1,10 @@
 import re
 from collections import defaultdict
 
-from boilerplate import get_lines
+from boilerplate import run_with_file, lines_getter
 
 
-def run(filename):
-    lines = get_lines(filename)
-
+def run(lines):
     left, right = [], defaultdict(lambda: 0)
 
     for line in lines:
@@ -20,5 +18,5 @@ def run(filename):
 
 
 if __name__ == '__main__':
-    run('example.txt')
-    run('input.txt')
+    run_with_file('example.txt', run)
+    run(lines_getter('d1'))

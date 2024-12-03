@@ -1,4 +1,4 @@
-from boilerplate import get_lines
+from boilerplate import run_with_file, lines_getter
 
 
 def is_safe_sequence(nums):
@@ -17,9 +17,7 @@ def is_safe_sequence(nums):
     return True
 
 
-def run(filename):
-    lines = get_lines(filename)
-
+def run(lines):
     total_safe = 0
 
     for line in lines:
@@ -33,5 +31,5 @@ def run(filename):
 
 
 if __name__ == '__main__':
-    run('example.txt')
-    run('input.txt')
+    run_with_file('example.txt', run)
+    run(lines_getter('d2'))

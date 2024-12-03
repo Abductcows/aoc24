@@ -1,3 +1,11 @@
+import re
+
+
+def run_with_file(file, run_function):
+    lines = get_lines(file)
+    run_function(lines)
+
+
 def get_lines(filename):
     lines = []
     with open(filename) as file:
@@ -6,5 +14,24 @@ def get_lines(filename):
 
     while lines and not lines[-1]:
         lines.pop()
+
+    return lines
+
+
+def lines_getter(day_with_num):
+    lines = []
+    with open('inputs.txt') as file:
+        while not file.readline().startswith(f'{day_with_num}:'):
+            pass
+        while True:
+            line = file.readline()
+            if not line or re.match(r'd(\d+):', line):
+                break
+            lines.append(line.rstrip('\n'))
+
+    while lines and not lines[-1]:
+        lines.pop()
+    while lines and not lines[0]:
+        lines.remove(0)
 
     return lines

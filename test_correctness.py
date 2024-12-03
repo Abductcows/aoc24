@@ -2,33 +2,37 @@ import importlib
 import os
 import re
 import unittest
+from collections import OrderedDict
+
+from boilerplate import lines_getter
 
 
-##### SPOILERS FOR THE SAME INPUT FILES #####
+class AdventTests(unittest.TestCase):
+    def test_all(self):
+        for expected, module in zip(AdventTests.answers, AdventTests.module_dict):
+            actual = self.solve(module)
+            with self.subTest(msg=f'{module} | expected:{expected}, actual:{actual}'):
+                self.assertEqual(expected, actual)
 
-class MyTestCase(unittest.TestCase):
-    def test_d1(self):
-        self.assertEqual(1189304, self.solve('d1p1'))
-        self.assertEqual(24349736, self.solve('d1p2'))
+    def solve(self, module_name):
+        day = re.match(r'd(\d+)', module_name).group()
+        return AdventTests.module_dict[module_name].run(lines_getter(day))
 
-    def test_d2(self):
-        self.assertEqual(585, self.solve('d2p1'))
-        self.assertEqual(626, self.solve('d2p2'))
+    @classmethod
+    def setUpClass(cls):
+        with open('spoilers.txt') as answers:
+            cls.answers = [int(ans.rstrip('\n')) for ans in answers.readlines() if ans.strip()]
 
-    def setUp(self):
+        cls.module_dict = dict()
         current_dir = os.path.dirname(os.path.abspath(__file__))
         files = [f[:-3] for f in os.listdir(current_dir) if f.startswith('d') and f.endswith('.py')]
         for file in files:
             module = importlib.import_module(file)
-            self.module_dict[file] = module
+            cls.module_dict[file] = module
 
-    module_dict = {}
-
-    def solve(self, module_name):
-        match = re.fullmatch(r'd(\d+)p(\d+)', module_name)
-        assert match
-        day, _problem = map(int, match.groups())
-        return self.module_dict[module_name].run(f'i{day}.txt')
+        cls.module_dict = OrderedDict(sorted(cls.module_dict.items(),
+                                             key=lambda pair: tuple(map(int, re.findall(r'\d+', pair[0])))))
+        assert len(cls.answers) == len(cls.module_dict), "module or answer missing"
 
 
 if __name__ == '__main__':
