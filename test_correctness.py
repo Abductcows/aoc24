@@ -4,7 +4,7 @@ import re
 import unittest
 from collections import OrderedDict
 
-from boilerplate import get_input_for_day
+from utils import get_input_for_day
 
 
 class AdventTests(unittest.TestCase):

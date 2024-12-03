@@ -1,7 +1,7 @@
 import re
 from collections import defaultdict
 
-from boilerplate import run_with_file, get_input_for_day
+from utils import run_with_file, get_input_for_day
 
 
 def run(lines):
