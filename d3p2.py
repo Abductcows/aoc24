@@ -15,7 +15,7 @@ def run(lines):
         for instruction in instructions:
             if instruction.startswith('mul') and do_mul:
                 ans += reduce(lambda acc, v: acc * v, map(int, re.findall(r'\d+', instruction)), 1)
-            elif instruction.startswith('d'):
+            elif instruction.startswith('do'):
                 do_mul = "n't" not in instruction
 
     return ans
