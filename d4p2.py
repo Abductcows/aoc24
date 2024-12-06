@@ -1,25 +1,44 @@
-from itertools import product
-
 from utils import get_lines, get_input_for_day
 
 
+def look_for(query, letters, row, col, row_step, col_step):
+    traversed = []
+    m, n = len(letters), len(letters[0])
+    steps_left = len(query)
+    while steps_left > 0 and 0 <= row < m and 0 <= col < n:
+        traversed.append(letters[row][col])
+        steps_left -= 1
+        row += row_step
+        col += col_step
+    return ''.join(traversed) == query
+
+
 def run(lines):
-    n = len(lines)
-
     letters = lines
+    m, n = len(letters), len(letters[0])
 
-    count = 0
-    for row, col in product(range(n), repeat=2):
-        c = letters[row][col]
-        if c != 'A' or row == 0 or col == 0 or row == n - 1 or col == n - 1:
-            continue
+    query = 'MAS'
+    middle = query[len(query) // 2]
+    q1, q2 = [query[:len(query) // 2], query[::-1][:len(query) // 2]]
 
-        main = letters[row - 1][col - 1] + letters[row + 1][col + 1]
-        second = letters[row + 1][col - 1] + letters[row - 1][col + 1]
-        if 'M' in main and 'M' in second and 'S' in main and 'S' in second:
-            count += 1
+    total = 0
+    for row in range(m):
+        for col in range(n):
+            if letters[row][col] != middle:
+                continue
 
-    return count
+            found = 0
+            for row_step, col_step in [(1, 1), (1, -1)]: # main, secondary diagonals
+                if (look_for(q1, letters, row + row_step, col + col_step, row_step, col_step) and
+                        look_for(q2, letters, row - row_step, col - col_step, -row_step, -col_step) or
+                        # reversed search
+                        look_for(q2, letters, row + row_step, col + col_step, row_step, col_step) and
+                        look_for(q1, letters, row - row_step, col - col_step, -row_step, -col_step)):
+                    found += 1
+            if found == 2: # both diagonals simultaneously
+                total += 1
+
+    return total
 
 
 if __name__ == '__main__':

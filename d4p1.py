@@ -1,36 +1,29 @@
 from utils import get_lines, get_input_for_day
 
 
-def count_all_in_sequence(start, offsets, number_of_steps, letters, n):
-    start_1d = n * start[0] + start[1]
-    step = n * offsets[0] + offsets[1]
-    stop = start_1d + step * number_of_steps
-    x = letters[start_1d:stop:step]
-    return x.count('XMAS') + ''.join(reversed(x)).count('XMAS')
+def look_for(query, letters, row, col, row_step, col_step):
+    traversed = []
+    m, n = len(letters), len(letters[0])
+    steps_left = len(query)
+    while steps_left > 0 and 0 <= row < m and 0 <= col < n:
+        traversed.append(letters[row][col])
+        steps_left -= 1
+        row += row_step
+        col += col_step
+    return ''.join(traversed) == query
 
 
 def run(lines):
-    n = len(lines)
-    letters_1d = ''.join(lines)
+    letters = lines
+    m, n = len(letters), len(letters[0])
+    total = 0
+    for row in range(m):
+        for col in range(n):
+            for row_step, col_step in [(0, 1), (1, 1), (1, 0), (1, -1)]:
+                total += look_for('XMAS', letters, row, col, row_step, col_step)
+                total += look_for('SAMX', letters, row, col, row_step, col_step)
 
-    count = 0
-    letter_traversals = [
-        *[((row, 0), (0, 1), n) for row in range(n)],  # rows
-        *[((0, col), (1, 0), n) for col in range(n)],  # cols
-
-        ((0, 0), (1, 1), n),  # main diagonal
-        ((0, n - 1), (1, -1), n),  # secondary diagonal
-
-        *[((0, start_col), (1, 1), n - start_col) for start_col in range(1, n)],  # diagonals ltr above main
-        *[((start_row, 0), (1, 1), n - start_row) for start_row in range(1, n)],  # diagonals ltr below main
-
-        *[((0, start_col), (1, -1), start_col + 1) for start_col in range(0, n - 1)],  # diagonals rtl above secondary
-        *[((start_row, n - 1), (1, -1), n - start_row) for start_row in range(1, n)]  # diagonals rtl below secondary
-    ]
-
-    for start, diffs, element_count in letter_traversals:
-        count += count_all_in_sequence(start, diffs, element_count, letters_1d, n)
-    return count
+    return total
 
 
 if __name__ == '__main__':
