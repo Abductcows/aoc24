@@ -10,6 +10,7 @@ def first_index(l, pred):
 
 def run_simulation(grid, start_row, start_col, row_step=-1, col_step=0, **kwargs):
     seen = kwargs.get('seen', set())
+    first_prev = kwargs.get('prev', None)
     row, col, m, n = start_row, start_col, len(grid), len(grid[0])
     while True:
         if (row, col, row_step, col_step) in seen:
@@ -23,6 +24,9 @@ def run_simulation(grid, start_row, start_col, row_step=-1, col_step=0, **kwargs
             if grid[next_row][next_col] == '#':
                 break
 
+            if first_prev is not None and (next_row, next_col) not in first_prev:
+                first_prev[(next_row, next_col)] = (row, col, row_step, col_step)
+
             row, col = next_row, next_col
 
         row_step, col_step = col_step, -row_step
@@ -34,12 +38,13 @@ def run(lines):
     start_col = first_index(grid[start_row], lambda c: c == '^')
 
     all_visited = set()
-    run_simulation(grid, start_row, start_col, seen=all_visited)
+    prev = dict()
+    run_simulation(grid, start_row, start_col, seen=all_visited, prev=prev)
 
     total = 0
     for entry in {(v[0], v[1]) for v in all_visited} - {(start_row, start_col)}:
         grid[entry[0]][entry[1]] = '#'
-        if run_simulation(grid, start_row, start_col):
+        if run_simulation(grid, *prev[entry]):
             total += 1
         grid[entry[0]][entry[1]] = '.'
 
