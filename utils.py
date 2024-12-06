@@ -1,11 +1,6 @@
 import re
 
 
-def run_with_file(file, run_function):
-    lines = get_lines(file)
-    return run_function(lines)
-
-
 def get_lines(filename):
     lines = []
     with open(filename) as file:
