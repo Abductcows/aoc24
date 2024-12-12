@@ -1,5 +1,5 @@
-from utils import get_lines, get_input_for_day
-from functools import cache
+from utils import get_lines, get_input_for_day, runtime
+
 
 def first_index(l, pred):
     for i, e in enumerate(l):
@@ -52,6 +52,7 @@ def run_simulation(grid, start_row, start_col, row_step=-1, col_step=0, **kwargs
         row_step, col_step = col_step, -row_step
 
 
+@runtime
 def run(lines):
     grid = list(map(list, lines))
     start_row = first_index(grid, lambda s: '^' in s)

@@ -1,8 +1,10 @@
-from utils import get_lines, get_input_for_day
+from utils import get_lines, runtime
 
 
+@runtime
 def run(lines):
     pass
+
 
 if __name__ == '__main__':
     print(run(get_lines('example.txt')))

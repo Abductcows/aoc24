@@ -13,6 +13,7 @@ class AdventTests(unittest.TestCase):
             actual = self.solve(module)
             with self.subTest(msg=f'{module} | expected:{expected}, actual:{actual}'):
                 self.assertEqual(expected, actual)
+        print(flush=True)
 
     def solve(self, module_name):
         day = re.match(r'd(\d+)', module_name).group()

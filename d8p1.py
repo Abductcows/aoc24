@@ -1,7 +1,7 @@
 from collections import defaultdict
 from itertools import product
 
-from utils import get_lines, get_input_for_day
+from utils import get_lines, get_input_for_day, runtime
 
 
 def get_antinodes(antennas, type):
@@ -19,6 +19,7 @@ def get_antinodes(antennas, type):
     return antinodes
 
 
+@runtime
 def run(lines):
     grid = lines
     m, n = len(grid), len(grid[0])

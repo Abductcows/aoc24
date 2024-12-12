@@ -1,8 +1,9 @@
 from collections import defaultdict
 
-from utils import get_lines, get_input_for_day
+from utils import get_lines, get_input_for_day, runtime
 
 
+@runtime
 def run(lines):
     befores = defaultdict(set)
 

@@ -1,11 +1,10 @@
 import itertools
 import re
 
-from utils import get_lines, get_input_for_day
-
-from itertools import product
+from utils import get_lines, get_input_for_day, runtime
 
 
+@runtime
 def run(lines):
     total = 0
 

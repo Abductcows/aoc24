@@ -1,4 +1,7 @@
+import inspect
 import re
+import time
+from pathlib import Path
 
 
 def get_lines(filename):
@@ -33,3 +36,16 @@ def get_input_for_day(day_with_num):
         lines.remove(0)
 
     return lines
+
+
+def runtime(func):
+    module_name = Path(inspect.getfile(func)).name[:-3]
+
+    def wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        result = func(*args, **kwargs)
+        end_time = time.perf_counter()
+        print(f"Runtime of {module_name}.{func.__name__}: {int(1_000 * (end_time - start_time)):_}ms")
+        return result
+
+    return wrapper

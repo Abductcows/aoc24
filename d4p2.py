@@ -1,4 +1,4 @@
-from utils import get_lines, get_input_for_day
+from utils import get_lines, get_input_for_day, runtime
 
 
 def look_for(query, letters, row, col, row_step, col_step):
@@ -13,6 +13,7 @@ def look_for(query, letters, row, col, row_step, col_step):
     return ''.join(traversed) == query
 
 
+@runtime
 def run(lines):
     letters = lines
     m, n = len(letters), len(letters[0])
@@ -28,14 +29,14 @@ def run(lines):
                 continue
 
             found = 0
-            for row_step, col_step in [(1, 1), (1, -1)]: # main, secondary diagonals
+            for row_step, col_step in [(1, 1), (1, -1)]:  # main, secondary diagonals
                 if (look_for(q1, letters, row + row_step, col + col_step, row_step, col_step) and
                         look_for(q2, letters, row - row_step, col - col_step, -row_step, -col_step) or
                         # reversed search
                         look_for(q2, letters, row + row_step, col + col_step, row_step, col_step) and
                         look_for(q1, letters, row - row_step, col - col_step, -row_step, -col_step)):
                     found += 1
-            if found == 2: # both diagonals simultaneously
+            if found == 2:  # both diagonals simultaneously
                 total += 1
 
     return total

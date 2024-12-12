@@ -1,9 +1,10 @@
 import re
 from functools import reduce
 
-from utils import get_lines, get_input_for_day
+from utils import get_lines, get_input_for_day, runtime
 
 
+@runtime
 def run(lines):
     ans = 0
     do_mul = True
@@ -19,6 +20,7 @@ def run(lines):
                 do_mul = "n't" not in instruction
 
     return ans
+
 
 if __name__ == '__main__':
     print(run(get_lines('example.txt')))

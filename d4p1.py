@@ -1,4 +1,4 @@
-from utils import get_lines, get_input_for_day
+from utils import get_lines, get_input_for_day, runtime
 
 
 def look_for(query, letters, row, col, row_step, col_step):
@@ -13,6 +13,7 @@ def look_for(query, letters, row, col, row_step, col_step):
     return ''.join(traversed) == query
 
 
+@runtime
 def run(lines):
     letters = lines
     m, n = len(letters), len(letters[0])

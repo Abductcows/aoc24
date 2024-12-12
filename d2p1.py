@@ -1,4 +1,4 @@
-from utils import get_lines, get_input_for_day
+from utils import get_lines, get_input_for_day, runtime
 
 
 def is_safe_sequence(nums):
@@ -17,6 +17,7 @@ def is_safe_sequence(nums):
     return True
 
 
+@runtime
 def run(lines):
     total_safe = 0
 

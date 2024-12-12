@@ -1,9 +1,7 @@
 import itertools
 import re
 
-from utils import get_lines, get_input_for_day
-
-from itertools import product
+from utils import get_lines, get_input_for_day, runtime
 
 ignored = {(40100695446, 13), (8492543459938, 849), (1885028345241, 96), (1468889, 4), (61750, 3), (243, 8), (36865, 3),
            (659267425, 93), (127371280, 39), (50957095688, 70), (28030320798, 6), (29124036, 9), (341557764, 9),
@@ -66,6 +64,7 @@ def pad_for(n):
     return pad
 
 
+@runtime
 def run(lines):
     total = 0
 
